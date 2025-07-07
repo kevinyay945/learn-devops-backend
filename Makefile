@@ -1,6 +1,6 @@
 .PHONY: build-image push-image
 
-SERVER  = docker.pkg.github.com
+SERVER  = ghcr.io/
 REPO    ?=kevinyay945/learn-devops-backend
 COMMIT  =${shell git rev-parse --short HEAD}
 LOG     ="${shell git log -1 --pretty=%B}"
