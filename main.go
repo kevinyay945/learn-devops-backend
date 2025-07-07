@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -7,10 +6,16 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/joho/godotenv/autoload"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Printf("Error loading .env file: %v", err)
+	}
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "5000"
@@ -31,6 +36,11 @@ func main() {
 	r.GET("/health/readiness", func(c *gin.Context) {
 		// In a real application, you would check database connections, external services, etc.
 		c.JSON(http.StatusOK, gin.H{"status": "READY"})
+	})
+
+	r.GET("/env", func(c *gin.Context) {
+		currEnv := os.Getenv("CURR_ENV")
+		c.JSON(http.StatusOK, gin.H{"curr_env": currEnv})
 	})
 
 	log.Printf("Server listening on :%s", port)
