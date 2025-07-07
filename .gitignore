@@ -1,0 +1,15 @@
+# Binaries for programs and plugins
+backend
+*.exe
+*.test
+*.prof
+
+# Environment variables
+.env
+
+# Dependency directories
+vendor/
+
+# IDE files
+.idea/
+.vscode/

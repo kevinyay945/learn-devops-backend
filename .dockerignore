@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+backend
+Makefile
+README.md
+.idea/
+.vscode/
