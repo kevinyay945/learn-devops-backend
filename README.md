@@ -117,7 +117,7 @@ To enable the automated workflows to trigger each other, you need to create a Pe
     - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
     - Click "Generate new token (classic)"
     - Give it a descriptive name (e.g., "Learn DevOps Backend Workflows")
-    - Select scopes: `repo` (Full control of private repositories) and `workflow` (Update GitHub Action workflows)
+    - Select scopes: `repo` (Full control of private repositories), `workflow` (Update GitHub Action workflows), and `write:packages` (Upload packages to GitHub Package Registry)
     - Click "Generate token" and copy the token
 
 2.  **Add the token as a repository secret:**
@@ -127,7 +127,7 @@ To enable the automated workflows to trigger each other, you need to create a Pe
     - Value: Paste your Personal Access Token
     - Click "Add secret"
 
-This PAT allows the bump version workflows to push tags that trigger the "Build and Push Docker Image on Tag" workflow.
+This PAT allows the bump version workflows to push tags that trigger the "Build and Push Docker Image on Tag" workflow, and enables pushing Docker images to GitHub Container Registry.
 
 ### Deploy to Docker Hub
 
