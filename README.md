@@ -7,6 +7,7 @@ This is a simple Go application built with the Gin web framework, demonstrating 
 - Go application using Gin framework.
 - Environment variable loading with `godotenv/autoload`.
 - Liveness and Readiness health check endpoints.
+- Graceful shutdown endpoint for controlled server termination.
 - Multi-stage Dockerfile for efficient image building.
 - Makefile for common development and deployment tasks.
 
@@ -73,6 +74,9 @@ The application will be accessible at `http://localhost:5000` (or your specified
 
 -   **Readiness Probe:** `GET /health/readiness`
     Returns `{"status": "READY"}`. In a real-world scenario, this would check external dependencies (e.g., database connections).
+
+-   **Graceful Shutdown:** `POST /shutdown`
+    Triggers a graceful shutdown of the server. Returns `{"message": "Server is shutting down gracefully..."}` and initiates the shutdown process with a 5-second timeout for ongoing requests.
 
 ## Building
 
