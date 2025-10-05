@@ -109,6 +109,26 @@ This repository includes automated versioning workflows that follow [Semantic Ve
 
 After a new tag is created, the "Build and Push Docker Image on Tag" workflow automatically builds and pushes a Docker image to GitHub Container Registry (ghcr.io).
 
+#### Required Setup
+
+To enable the automated workflows to trigger each other, you need to create a Personal Access Token (PAT):
+
+1.  **Create a Personal Access Token:**
+    - Go to GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)
+    - Click "Generate new token (classic)"
+    - Give it a descriptive name (e.g., "Learn DevOps Backend Workflows")
+    - Select scopes: `repo` (Full control of private repositories) and `workflow` (Update GitHub Action workflows)
+    - Click "Generate token" and copy the token
+
+2.  **Add the token as a repository secret:**
+    - Navigate to your repository's Settings → Secrets and variables → Actions
+    - Click "New repository secret"
+    - Name: `PAT`
+    - Value: Paste your Personal Access Token
+    - Click "Add secret"
+
+This PAT allows the bump version workflows to push tags that trigger the "Build and Push Docker Image on Tag" workflow.
+
 ### Deploy to Docker Hub
 
 To push the Docker image to Docker Hub:
