@@ -100,6 +100,15 @@ make build-docker
 
 ## Deployment
 
+### Automated Versioning with GitHub Actions
+
+This repository includes automated versioning workflows that follow [Semantic Versioning](https://semver.org/):
+
+-   **Bump Minor Version:** Navigate to the "Actions" tab on GitHub, select "Bump Minor Version" workflow, and click "Run workflow". This increments the minor version (e.g., v1.0.0 → v1.1.0).
+-   **Bump Patch Version:** Navigate to the "Actions" tab on GitHub, select "Bump Patch Version" workflow, and click "Run workflow". This increments the patch version (e.g., v1.0.0 → v1.0.1).
+
+After a new tag is created, the "Build and Push Docker Image on Tag" workflow automatically builds and pushes a Docker image to GitHub Container Registry (ghcr.io).
+
 ### Deploy to Docker Hub
 
 To push the Docker image to Docker Hub:
