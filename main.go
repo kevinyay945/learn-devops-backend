@@ -13,6 +13,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var isLive = true
+
 func main() {
 	// Load .env file
 	err := godotenv.Load()
@@ -62,12 +64,21 @@ func runServer() {
 	})
 
 	r.GET("/health/liveness", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": "UP"})
+		if isLive {
+			c.JSON(http.StatusOK, gin.H{"status": "UP"})
+		} else {
+			c.JSON(http.StatusServiceUnavailable, gin.H{"status": "DOWN"})
+		}
 	})
 
 	r.GET("/health/readiness", func(c *gin.Context) {
 		// In a real application, you would check database connections, external services, etc.
 		c.JSON(http.StatusOK, gin.H{"status": "READY"})
+	})
+
+	r.POST("/health/liveness/toggle", func(c *gin.Context) {
+		isLive = !isLive
+		c.JSON(http.StatusOK, gin.H{"is_live": isLive})
 	})
 
 	r.GET("/env", func(c *gin.Context) {
