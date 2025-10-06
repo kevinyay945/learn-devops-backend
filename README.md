@@ -70,13 +70,35 @@ The application will be accessible at `http://localhost:5000` (or your specified
     Returns a simple JSON message.
 
 -   **Liveness Probe:** `GET /health/liveness`
-    Returns `{"status": "UP"}` if the application is running.
+    Returns `{"status": "UP"}` if the application is running. Can be toggled to `{"status": "DOWN"}` via the `/health/liveness/toggle` endpoint.
+
+-   **Toggle Liveness:** `POST /health/liveness/toggle`
+    Toggles the liveness state between `UP` and `DOWN`.
 
 -   **Readiness Probe:** `GET /health/readiness`
     Returns `{"status": "READY"}`. In a real-world scenario, this would check external dependencies (e.g., database connections).
 
+-   **Environment Variable:** `GET /env`
+    Returns the value of the `CURR_ENV` environment variable.
+
 -   **Graceful Shutdown:** `POST /shutdown`
     Triggers a graceful shutdown of the server. Returns `{"message": "Server is shutting down gracefully..."}` and initiates the shutdown process with a 5-second timeout for ongoing requests.
+
+### Health Check Command
+
+You can also run a health check from the command line:
+
+```bash
+go run main.go health
+```
+
+Or, if you have the compiled binary:
+
+```bash
+./backend health
+```
+
+This command sends a `GET` request to the `/health/liveness` endpoint and will exit with a non-zero status code if the health check fails.
 
 ## Building
 
@@ -152,12 +174,11 @@ To push the Docker image to Docker Hub:
 ## Project Structure
 
 ```
-.env
-.env.example
-Dockerfile
-go.mod
-go.sum
-main.go
-Makefile
-README.md
+.
+├── Dockerfile          # Defines the Docker image for the application.
+├── Makefile            # Contains common commands for building, running, and deploying.
+├── README.md           # This file.
+├── go.mod              # Manages dependencies for the Go project.
+├── go.sum              # Contains the checksums of the direct and indirect dependencies.
+└── main.go             # The main entry point for the application.
 ```
