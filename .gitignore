@@ -1,15 +1,27 @@
 # Binaries for programs and plugins
-backend
 *.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
 *.test
-*.prof
+
+# Output of the go coverage tool, specifically when run with the -o option
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# IDE settings
+.idea/
+.vscode/
 
 # Environment variables
 .env
 
-# Dependency directories
-vendor/
-
-# IDE files
-.idea/
-.vscode/
+# Compiled binary
+main
+backend
+*.log
