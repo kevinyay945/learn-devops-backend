@@ -20,6 +20,34 @@ func main() {
 		log.Printf("Error loading .env file: %v", err)
 	}
 
+	if len(os.Args) > 1 && os.Args[1] == "health" {
+		healthCheck()
+		return
+	}
+
+	runServer()
+}
+
+func healthCheck() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5000"
+	}
+
+	resp, err := http.Get("http://localhost:" + port + "/health/liveness")
+	if err != nil {
+		log.Fatalf("Health check failed: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Health check failed with status %s", resp.Status)
+	}
+
+	log.Println("Health check successful")
+}
+
+func runServer() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "5000"
